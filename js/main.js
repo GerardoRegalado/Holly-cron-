@@ -2,7 +2,6 @@ const canvas = document.getElementById("Holly-cron")
 const ctx = canvas.getContext("2d")
 
 let frames=0 ; // esta linea le dara a los personajes la animacion que necesitamos.
-
 // declaracion de imagenes 
 
 const covid = new Image()                                   //Heroe
@@ -23,38 +22,42 @@ enfermera.src= "../assets/images/enfermera.png"
 const dactar = new Image()                                  //posiblemente se cambien por pacientes
 dactar.src= "../assets/images/dactar.png"
 
-const cubrebocas = new Image()                              //Villano
-cubrebocas.src= "../assets/images/cubrebocas.png"
 
-const tapete = new Image()                                  //Villano
-tapete.src="../assets/images/jerga.png"
+    const cubrebocas = new Image()                             //Villano
+    cubrebocas.src= "../assets/images/cubrebocas.png"
 
-const lysol= new Image()                                    //Villano
-lysol.src= "../assets/images/Lysol.png"
+    const tapete = new Image()                                  //Villano
+    tapete.src="../assets/images/jerga.png"
 
-const gel = new Image ()                                    //Villano
-gel.src= "../assets/images/gel.png"
+    const lysol= new Image()                                    //Villano
+    lysol.src= "../assets/images/Lysol.png"
 
-const vacuna= new Image()                                   //Villano
-vacuna.src="../assets/images/Vacuna.png"
+    const gel = new Image ()                                    //Villano
+    gel.src= "../assets/images/gel.png"
 
-const fondoOriental= new Image()                            //Villano
+    const vacuna= new Image()                                   //Villano
+    vacuna.src="../assets/images/Vacuna.png"
+
+
+const fondoOriental= new Image()                            //fondo
 fondoOriental.src= "../assets/images/Fondo oriental.png"
 
-const fondoEuropeo= new Image()                             //Villano
+const fondoEuropeo= new Image()                             //fondo
 fondoEuropeo.src="../assets/images/fondo europeo.png"
 
-const fondoAdelN =new Image()                               //Villano
+const fondoAdelN =new Image()                               //fondo
 fondoAdelN.src="../assets/images/fondo a del n.png"
 
-const fondoAdelS= new Image()                               //Villano
+const fondoAdelS= new Image()                               //fondo
 fondoAdelS.src= "../assets/images/fondo a del sur.png"
 
 // fondoOriental.onload= () => {                            // asi se mete una imagen
 //     ctx.drawImage(fondoOriental,50,10,1500,600)
 // }
 
-
+const imageEnemies = ["assets/images/cubrebocas.png","assets/images/jerga.png",
+"assets/images/Lysol.png", "assets/images/gel.png","assets/images/Vacuna.png"]
+const enemies = [];
 
 
 
@@ -103,12 +106,16 @@ class Characters
         this.width= w,
         this.height= h,
         this.image= img
+       
 
     }
 
     draw()
     {
-        ctx.drawImage(this.img,this.x,this,y,this.width,this.height)
+        
+
+        ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+      
     }
 
     collition(item)
@@ -133,6 +140,7 @@ class Characters
                 super(x,y,w,h) 
                 this.image1 = covid
                 this.image = this.image1
+                this.lifePoint= 100
             }
 
             draw()
@@ -150,11 +158,12 @@ class Characters
                 super(x,y,w,h)
                 this.image1=alpha
                 this.image = this.image1
+                this.lifePoint= 100
             }
 
             draw()
             {
-               // ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+               //ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
             }
 
         }
@@ -166,6 +175,7 @@ class Characters
                 super(x,y,w,h)
                 this.image1 = delta
                 this.image=this.image1
+                this.lifePoint= 100
             }
 
             draw()
@@ -183,6 +193,7 @@ class Characters
                 super(x,y,w,h)
                 this.image1= omicron
                 this.image= this.image1
+                this.lifePoint= 100
             }
 
             draw()
@@ -193,15 +204,143 @@ class Characters
         }
 
 
+class Enemy
+{
+    constructor(x,y,w,h,img)
+    {
+        this.x = x
+        this.y=y
+        this.width= w
+        this.height= h
+        this.image=img
+    }
+            
+    draw()
+    {
+        //  if (frames % 10 === 0)
+        // {
+        //     this.image= this.image1 === canvas.width ? this.x -=5 : this.x*=
+        // }
         
+        ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+    }
+  
+    collition(item)
+    {
+        return 
+        (
+            this.x < item.x + item.width && 
+            this.x + this.width > item.x && 
+            this.y < item.y + item.height && 
+            this.y + this.height > item.y
+        )
+
+    }
+}
+
+            class Cubrebocas extends Enemy
+            {
+                constructor (x,y,w,h)
+                {
+                    super (x,y,w,h)
+                    this.image1= cubrebocas 
+                    this.image= this.image1
+                }
+
+                draw()
+                {
+                   
+                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+                }
+                
+            }
+
+            class Tapete extends Enemy
+            {
+                constructor (x,y,w,h)
+                {
+                    super(x,y,w,h)
+                    this.image1= tapete
+                    this.image= this.image1
+                }
+
+                draw()
+                {
+                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+                }
+
+            }
+
+            class Lysol extends Enemy 
+            {
+                constructor(x,y,w,h)
+                {
+                    super(x,y,w,h)
+                    this.image1=lysol
+                    this.image= this.image1
+                }
+
+                draw()
+                {
+                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+                }
+
+
+            }
+
+            
+            class Gel extends Enemy 
+            {
+                constructor(x,y,w,h)
+                {
+                    super(x,y,w,h)
+                    this.image1= gel
+                    this.image= this.image1
+                }
+
+                draw()
+                {
+                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+                }
+
+
+            }
+
+            class Vacuna extends Enemy 
+            {
+                constructor(x,y,w,h)
+                {
+                    super(x,y,w,h)
+                    this.image1= vacuna
+                    this.image= this.image1
+                }
+
+                draw()
+                {
+                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+                }
+
+
+            }
+
 
 
 //Llamar a las clases o instancear a las clases para poder utilizar sus metodos y propiedades 
 const fondo = new Background()
+
+//Heroes
 const covidHeroe = new Covid(15,200,120,120)
-const alphaHeroe = new Alpha (15,450,120,120)
-const deltaHeroe = new Delta (15,450,120,120)
-const omicronHeroe = new Omicron(15,450,120,120)
+const alphaHeroe = new Alpha (15,200,120,120)
+const deltaHeroe = new Delta (15,200,120,120)
+const omicronHeroe = new Omicron(15,200,210,210)
+
+//Enemies
+// const cubrebocasEnemy = new Cubrebocas (canvas.width-500, 200, 120,120)
+// const tapeteEnemy = new Tapete(canvas.width-500,100,120,120)
+// const lysolEnemy = new Lysol (canvas.width-500,300,120,120)
+// const gelEnemy = new Gel (canvas.width-500, 450,120,120)
+// const vacunaEnemy = new Vacuna ( canvas.width-300, 250,120,120)
+const Enemies = new Enemy (canvas.width-500,200,120,120)
 
 
 
@@ -211,17 +350,23 @@ function updateCanvas()
     frames ++;
     ctx.clearRect(0,0,canvas.width,canvas.height) //esto es para limpiar el canva y que no se vea arrastrado.
     fondo.draw()
-    covidHeroe.draw()
-    alphaHeroe.draw()   
-    deltaHeroe.draw()
-    omicronHeroe.draw()
-  
+    //heroes
+    covidHeroe.draw(),
+    alphaHeroe.draw(),  
+    deltaHeroe.draw(),
+    omicronHeroe.draw(),
+    //Enemies
+    // cubrebocasEnemy.draw(),
+    // tapeteEnemy.draw(),
+    // lysolEnemy.draw(),
+    // gelEnemy.draw(),
+    // vacunaEnemy.draw()
+    
 
+    
     requestAnimationFrame(updateCanvas)
 }
 updateCanvas()
-
-
 
 //Movimiento
 
@@ -230,31 +375,43 @@ addEventListener("keydown",(event)=>
     //Izquierda (tecla A)
     if (event.keyCode ===65) 
     {
-        Characters.x -= 5
+        covidHeroe.x -= 10,
+        alphaHeroe.x -= 10,
+        deltaHeroe.x -= 10,
+        omicronHeroe.x -= 10
     }
 
-    //derecha (tecla B)
+    //derecha (tecla D)
     if (event.keyCode === 68)
     {
-        Characters.x += 5
-    }
+        covidHeroe.x +=10
+        alphaHeroe.x += 10
+        deltaHeroe.x += 10,
+        omicronHeroe.x += 10
+            
+    };
+    
 
     // arriba (tecla W)
     if (event.keyCode === 87 )
     {
-        Characters.y += 5 
+        covidHeroe.y -= 20,
+        alphaHeroe.y -= 20,
+        deltaHeroe.y -= 20,
+        omicronHeroe.y -= 20
     }
 
     // abajo
 
     if (event.keyCode === 83)
     {
-        Characters.y -= 5
+        covidHeroe.y += 20,
+        alphaHeroe.y += 20,
+        deltaHeroe.y += 20,
+        omicronHeroe.y += 20
     }
 
-
-
-
+  
 
 })
 
