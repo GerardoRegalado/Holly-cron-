@@ -23,19 +23,19 @@ const dactar = new Image()                                  //posiblemente se ca
 dactar.src= "../assets/images/dactar.png"
 
 
-    const cubrebocas = new Image()                             //Villano
+    const cubrebocas = new Image()                             //Enemigo
     cubrebocas.src= "../assets/images/cubrebocas.png"
 
-    const tapete = new Image()                                  //Villano
+    const tapete = new Image()                                  //Enemigo
     tapete.src="../assets/images/jerga.png"
 
-    const lysol= new Image()                                    //Villano
+    const lysol= new Image()                                    //Enemigo
     lysol.src= "../assets/images/Lysol.png"
 
-    const gel = new Image ()                                    //Villano
+    const gel = new Image ()                                    //Enemigo
     gel.src= "../assets/images/gel.png"
 
-    const vacuna= new Image()                                   //Villano
+    const vacuna= new Image()                                   //Enemigo
     vacuna.src="../assets/images/Vacuna.png"
 
 
@@ -206,22 +206,22 @@ class Characters
 
 class Enemy
 {
-    constructor(x,y,w,h,img)
+    constructor(y,image)
     {
-        this.x = x
+        this.x = 1800
         this.y=y
-        this.width= w
-        this.height= h
-        this.image=img
-    }
-            
+        this.width= 120 
+        this.height= 120
+        this.image= new Image()
+        this.image.src= image
+    }      
     draw()
     {
         //  if (frames % 10 === 0)
         // {
         //     this.image= this.image1 === canvas.width ? this.x -=5 : this.x*=
         // }
-        
+        this.x--
         ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
     }
   
@@ -238,90 +238,91 @@ class Enemy
     }
 }
 
-            class Cubrebocas extends Enemy
-            {
-                constructor (x,y,w,h)
-                {
-                    super (x,y,w,h)
-                    this.image1= cubrebocas 
-                    this.image= this.image1
-                }
+            //  class Cubrebocas extends Enemy
+            //  {
+            //      constructor (x,y,w,h)
+            //     {
+            //         super (x,y,w,h)
+            //         this.image1= cubrebocas 
+            //          this.image= this.image1
+            //     }
 
-                draw()
-                {
+            //     draw()
+            //     {
                    
-                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
-                }
+            //         ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+            //     }
                 
-            }
+            // }
 
-            class Tapete extends Enemy
-            {
-                constructor (x,y,w,h)
-                {
-                    super(x,y,w,h)
-                    this.image1= tapete
-                    this.image= this.image1
-                }
+            // class Tapete extends Enemy
+            // {
+            //     constructor (x,y,w,h)
+            //     {
+            //         super(x,y,w,h)
+            //         this.image1= tapete
+            //         this.image= this.image1
+            //     }
 
-                draw()
-                {
-                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
-                }
+            //     draw()
+            //     {
+            //         ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+            //     }
 
-            }
+            // }
 
-            class Lysol extends Enemy 
-            {
-                constructor(x,y,w,h)
-                {
-                    super(x,y,w,h)
-                    this.image1=lysol
-                    this.image= this.image1
-                }
+            // class Lysol extends Enemy 
+            // {
+            //     constructor(x,y,w,h)
+            //     {
+            //         super(x,y,w,h)
+            //         this.image1=lysol
+            //         this.image= this.image1
+            //     }
 
-                draw()
-                {
-                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
-                }
+            //     draw()
+            //     {
+            //         ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+            //     }
 
 
-            }
+            // }
 
             
-            class Gel extends Enemy 
-            {
-                constructor(x,y,w,h)
-                {
-                    super(x,y,w,h)
-                    this.image1= gel
-                    this.image= this.image1
-                }
+            // class Gel extends Enemy 
+            // {
+            //     constructor(x,y,w,h)
+            //     {
+            //         super(x,y,w,h)
+            //         this.image1= gel
+            //         this.image= this.image1
+            //     }
 
-                draw()
-                {
-                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
-                }
-
-
-            }
-
-            class Vacuna extends Enemy 
-            {
-                constructor(x,y,w,h)
-                {
-                    super(x,y,w,h)
-                    this.image1= vacuna
-                    this.image= this.image1
-                }
-
-                draw()
-                {
-                    ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
-                }
+            //     draw()
+            //     {
+            //         ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+            //     }
 
 
-            }
+            // }
+
+            // class Vacuna extends Enemy 
+            // {
+            //     constructor(x,y,w,h)
+            //     {
+            //         super(x,y,w,h)
+            //         this.image1= vacuna
+            //         this.image= this.image1
+            //     }
+
+            //     draw()
+            //     {
+            //         this.x --
+            //         ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+            //     }
+
+
+ 
 
 
 
@@ -329,7 +330,7 @@ class Enemy
 const fondo = new Background()
 
 //Heroes
-const covidHeroe = new Covid(15,200,120,120)
+const covidHeroe = new Covid(15,200,60,60)
 const alphaHeroe = new Alpha (15,200,120,120)
 const deltaHeroe = new Delta (15,200,120,120)
 const omicronHeroe = new Omicron(15,200,210,210)
@@ -340,14 +341,35 @@ const omicronHeroe = new Omicron(15,200,210,210)
 // const lysolEnemy = new Lysol (canvas.width-500,300,120,120)
 // const gelEnemy = new Gel (canvas.width-500, 450,120,120)
 // const vacunaEnemy = new Vacuna ( canvas.width-300, 250,120,120)
-const Enemies = new Enemy (canvas.width-500,200,120,120)
 
 
+function generateObstaculos () {
+
+    if ((frames % 100=== 0)){
+    let posicionY = Math.floor(Math.random()*(canvas.height - 0 +1)+ 0)
+    let imageRandom = Math.floor(Math.random() * 3)
+    console.log(imageRandom)
+    let obstaculo = new Enemy(posicionY, imageEnemies[imageRandom])
+        console.log(posicionY)
+    enemies.push(obstaculo)
+    }
+}
+//generateObstaculos()
+console.log(enemies)
+
+function imprimirObstaculos(){
+    for(let obstaculo of enemies){
+        obstaculo.draw()
+    }
+
+}
 
 // 2. funcion updatecanvas para que el canvas se actualice y entre la animacion.
 function updateCanvas()
 {
     frames ++;
+    generateObstaculos();
+    //console.log(enemies)
     ctx.clearRect(0,0,canvas.width,canvas.height) //esto es para limpiar el canva y que no se vea arrastrado.
     fondo.draw()
     //heroes
@@ -356,6 +378,7 @@ function updateCanvas()
     deltaHeroe.draw(),
     omicronHeroe.draw(),
     //Enemies
+    imprimirObstaculos()
     // cubrebocasEnemy.draw(),
     // tapeteEnemy.draw(),
     // lysolEnemy.draw(),
@@ -414,5 +437,6 @@ addEventListener("keydown",(event)=>
   
 
 })
+
 
 
